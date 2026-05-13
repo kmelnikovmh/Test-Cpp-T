@@ -84,6 +84,6 @@ add_test(NAME main-test COMMAND main-test
     WORKING_DIRECTORY $<TARGET_FILE_DIR:alice-sandbox-calc>)
 
 add_custom_target(execute-tests
-    COMMAND env GTEST_COLOR=1 ${CMAKE_CTEST_COMMAND} --verbose --output-on-failure
+    COMMAND ${CMAKE_COMMAND} -E env GTEST_COLOR=1 ${CMAKE_CTEST_COMMAND} --build-config Debug --verbose --output-on-failure
     DEPENDS resource-test dungeon-test parser-test simulator-test alice-bot-test main-test
 )

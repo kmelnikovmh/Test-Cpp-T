@@ -92,7 +92,7 @@ std::vector<Action> AliceBot::run(Dungeon& dungeon, int food, Resource demand)
         bool is_final = (step == 0);
 
         if (!is_final || 0 < i) {
-            int dist = ret_path.size() - i;
+            int dist = static_cast<int>(ret_path.size()) - i;
             int surplus = food_left - dist;
 
             auto avail = eff_resources(rooms[cur], demand);
@@ -100,7 +100,7 @@ std::vector<Action> AliceBot::run(Dungeon& dungeon, int food, Resource demand)
                 if (surplus <= 0) break;
                 if (rooms[cur].m_resources[ri] <= 0) continue;
 
-                int collect_cost = first_collect_used[cur] ? 1 : 0;
+                int collect_cost;
                 if (!first_collect_used[cur]) {
                     first_collect_used[cur] = true;
                     collect_cost = 0;

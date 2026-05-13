@@ -11,7 +11,7 @@ const char* const kResourceName[kResourceCount] = {"iron", "gold", "gems", "exp"
 inline int eff_value(Resource r, Resource demand)
 {
     int v = kBaseValue[static_cast<int>(r)];
-    return r == demand ? v *= 2 : v;
+    return r == demand ? v * 2 : v;
 }
 
 } // namespace alice_sandbox_calc

@@ -10,8 +10,10 @@ namespace {
 
 #ifdef _WIN32
 const std::string exe_path =  "alice-sandbox-calc.exe";
+const std::string silent_suffix = " > NUL 2>&1";
 #else
 const std::string exe_path =  "./alice-sandbox-calc";
+const std::string silent_suffix = " > /dev/null 2>&1";
 #endif
 
 void write_file(const std::string& path, const std::string& content)
@@ -31,7 +33,7 @@ std::string read_file(const std::string& path)
 
 int run_app(const std::string& input_file)
 {
-    std::string cmd = exe_path + " " + input_file;
+    std::string cmd = exe_path + " " + input_file + silent_suffix;
     int rc = std::system(cmd.c_str());
 #ifndef _WIN32
     rc = WEXITSTATUS(rc);
@@ -43,7 +45,7 @@ int run_app(const std::string& input_file)
 
 TEST(MainTest, NoArgs)
 {
-    int rc = std::system(exe_path.c_str());
+    int rc = std::system((exe_path + silent_suffix).c_str());
 #ifndef _WIN32
     rc = WEXITSTATUS(rc);
 #endif
@@ -52,7 +54,7 @@ TEST(MainTest, NoArgs)
 
 TEST(MainTest, NonexistentFile)
 {
-    std::string cmd = exe_path + " no_exist_file.txt";
+    std::string cmd = exe_path + " no_exist_file.txt" + silent_suffix;
     int rc = std::system(cmd.c_str());
 #ifndef _WIN32
     rc = WEXITSTATUS(rc);

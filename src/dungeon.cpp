@@ -9,7 +9,7 @@ Dungeon::Dungeon(std::vector<Room> rooms) : m_original(rooms), m_rooms(std::move
 
 int Dungeon::room_count() const
 {
-    return m_rooms.size();
+    return static_cast<int>(m_rooms.size());
 }
 
 const Room& Dungeon::get_room(int id) const
@@ -36,7 +36,7 @@ std::vector<int> Dungeon::shortest_path(int from, int to, const std::vector<bool
 {
     if (from == to) return {};
 
-    int n = m_rooms.size();
+    int n = static_cast<int>(m_rooms.size());
     std::vector<int> prev(n, -1);
     std::vector<bool> seen(n, false);
     std::queue<int> q;
@@ -69,7 +69,7 @@ std::vector<int> Dungeon::shortest_path(int from, int to, const std::vector<bool
 std::vector<int> Dungeon::path_to_nearest_unvisited(
     int from, const std::vector<bool>& visited) const
 {
-    int n = m_rooms.size();
+    int n = static_cast<int>(m_rooms.size());
     std::vector<int> prev(n, -1);
     std::vector<bool> seen(n, false);
     std::queue<int> q;

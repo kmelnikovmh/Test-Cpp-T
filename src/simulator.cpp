@@ -44,7 +44,7 @@ void simulate(
     int inventory[kResourceCount] = {};
     int cur = 0;
     int last_go_zero = -1;
-    for (int i = actions.size() - 1; 0 <= i; --i) {
+    for (int i = static_cast<int>(actions.size()) - 1; 0 <= i; --i) {
         if (auto* go = std::get_if<GoAction>(&actions[i])) {
             if (go->m_room == 0) {
                 last_go_zero = i;
